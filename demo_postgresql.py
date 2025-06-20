@@ -22,6 +22,32 @@ class Students(db.Model):
         self.addr = addr
         self.email= email
 
+#
+@app.route("/")
+def index():
+    db.create_all()
+    return "資料庫連線成功!"
+
+@app.route("/insert")
+def insert():
+    student=Students("炭治郎","0910111111","台北市","demo@demo.com")
+    db.session.add(student)
+    db.session.commit()
+    return "新增一筆記錄成功!"
+
+@app.route("/insertall")
+def insert_all():
+    student1=Students("大郎","0910111111","台北市","demo@demo.com")
+    student2=Students("小郎","0910111111","台北市","demo@demo.com")
+    student=(student1,student2)
+    db.session.add_all(student)
+    db.session.commit()
+    return "新增多筆記錄成功!"
+
+
+if __name__=="__main__":
+    app.run()
+
 
 
 
